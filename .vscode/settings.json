@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "My SQL Local",
+            "database": "studentdb",
+            "username": "root",
+            "password": "Arpit7599@",
+            "connectionTimeout": 30
+        }
+    ]
+}

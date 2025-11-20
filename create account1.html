@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EmpowHer – Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+    }
+    .overlay {
+      background: rgba(128,0,128,0.6);
+      backdrop-filter: blur(8px);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .signup-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      /* make the card scrollable on smaller screens and limit height */
+      padding: 1rem;
+      width: 100%; max-width: 760px;
+      max-height: 86vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    /* make inputs and labels more compact for easier data entry */
+    .signup-card input,
+    .signup-card select,
+    .signup-card textarea {
+      font-size: 14px;
+      padding: 0.5rem 0.75rem;
+    }
+
+    /* Use a light background + dark text for selects so selected option is readable */
+    .signup-card select {
+      background: rgba(255,255,255,0.96);
+      color: #111;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* Style options where supported (browsers limit option styling) */
+    .signup-card select option {
+      color: #111;
+      background: #fff;
+    }
+
+    /* Keep disabled placeholder option muted */
+    .signup-card select option[disabled] {
+      color: #666;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #d946ef;
+      box-shadow: 0 0 8px #d946ef;
+    }
+    .btn-hover:hover {
+      background: #d946ef !important;
+      transition: 0.18s;
+    }
+    a { color: #f3e8ff; }
+    .section-title { color: #fdf7ff; font-weight: 600; font-size: 0.95rem; }
+    label { color: #fff; font-size: 0.82rem; }
+    .helper { color: #f3e8ff; font-size: 0.8rem; opacity: 0.95; }
+
+    /* smaller heading so form feels compact */
+    .signup-card h1 { font-size: 1.6rem; }
+
+    /* nicer-looking thin scrollbar on webkit */
+    .signup-card::-webkit-scrollbar { width: 10px; }
+    .signup-card::-webkit-scrollbar-track { background: transparent; }
+    .signup-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 8px; }
+
+    /* responsive tweak: reduce spacing on very small screens */
+    @media (max-width: 420px) {
+      .signup-card { padding: 0.75rem; }
+      .signup-card input, .signup-card select, .signup-card textarea { font-size: 13px; padding: 0.45rem 0.6rem; }
+      .signup-card h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="signup-card">
+      <div class="text-center mb-4">
+        <h1 class="text-3xl font-bold text-white mb-1">Create Account 👩</h1>
+        <p class="helper">Join EmpowHer — Your Safety, Your Power</p>
+      </div>
+
+      <form id="signupForm" class="space-y-4">
+        <!-- Personal row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="First Name" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+          </div>
+          <div>
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Last Name" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+          </div>
+        </div>
+
+        <!-- Email + email OTP -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+          <div class="md:col-span-2">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+          </div>
+          <div>
+            <button type="button" id="sendEmailOtp" class="w-full py-2 rounded-lg bg-purple-700 btn-hover text-white font-semibold">Send Email OTP</button>
+          </div>
+        </div>
+
+        <div id="emailOtpSection" class="hidden space-y-2">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <input type="text" id="emailOtpInput" placeholder="Enter Email OTP" class="mt-1 px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            <div>
+              <button type="button" id="verifyEmailOtp" class="w-full py-2 rounded-lg bg-green-600 text-white font-semibold">Verify Email OTP</button>
+            </div>
+            <div>
+              <button type="button" id="resendEmailOtp" class="w-full py-2 rounded-lg bg-yellow-600 text-white font-semibold">Resend</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passwords -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label for="password">Create Password</label>
+            <input type="password" id="password" placeholder="Password (min 6 chars)" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" minlength="6" required>
+          </div>
+          <div>
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" minlength="6" required>
+          </div>
+        </div>
+
+        <!-- Phone + phone OTP -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+          <div class="md:col-span-2">
+            <label for="phone">Mobile Number</label>
+            <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+          </div>
+          <div>
+            <button type="button" id="sendPhoneOtp" class="w-full py-2 rounded-lg bg-purple-700 btn-hover text-white font-semibold">Send Phone OTP</button>
+          </div>
+        </div>
+
+        <div id="phoneOtpSection" class="hidden space-y-2">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <input type="text" id="phoneOtpInput" placeholder="Enter Phone OTP" class="mt-1 px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            <div>
+              <button type="button" id="verifyPhoneOtp" class="w-full py-2 rounded-lg bg-green-600 text-white font-semibold">Verify Phone OTP</button>
+            </div>
+            <div>
+              <button type="button" id="resendPhoneOtp" class="w-full py-2 rounded-lg bg-yellow-600 text-white font-semibold">Resend</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gender + City -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label for="gender">Gender</label>
+            <select id="gender" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white">
+              <option value="" disabled selected class="text-gray-400">Select gender</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Non-binary">Non-binary</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="City" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+          </div>
+        </div>
+
+        <!-- Emergency contacts (3) -->
+        <div>
+          <p class="section-title mb-2">Emergency Contacts (at least 1 required)</p>
+          <p class="helper mb-3">These contacts will be notified in case of emergency — provide their phone or email.</p>
+
+          <!-- Contact 1 -->
+          <div class="mb-3 p-3 rounded-lg border border-gray-300 bg-white/6">
+            <p class="font-semibold text-white mb-2">Contact 1 (Required)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input type="text" id="ec1_name" placeholder="Name" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+              <input type="text" id="ec1_relation" placeholder="Relation (Parent/Friend...)" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white" required>
+              <input type="tel" id="ec1_phone" placeholder="Phone (10-digit)" maxlength="10" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+            <div class="mt-3">
+              <input type="email" id="ec1_email" placeholder="Email (optional)" class="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+          </div>
+
+          <!-- Contact 2 -->
+          <div class="mb-3 p-3 rounded-lg border border-gray-300 bg-white/6">
+            <p class="font-semibold text-white mb-2">Contact 2 (Optional)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input type="text" id="ec2_name" placeholder="Name" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+              <input type="text" id="ec2_relation" placeholder="Relation" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+              <input type="tel" id="ec2_phone" placeholder="Phone (10-digit)" maxlength="10" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+            <div class="mt-3">
+              <input type="email" id="ec2_email" placeholder="Email (optional)" class="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+          </div>
+
+          <!-- Contact 3 -->
+          <div class="mb-3 p-3 rounded-lg border border-gray-300 bg-white/6">
+            <p class="font-semibold text-white mb-2">Contact 3 (Optional)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <input type="text" id="ec3_name" placeholder="Name" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+              <input type="text" id="ec3_relation" placeholder="Relation" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+              <input type="tel" id="ec3_phone" placeholder="Phone (10-digit)" maxlength="10" class="px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+            <div class="mt-3">
+              <input type="email" id="ec3_email" placeholder="Email (optional)" class="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white/20 text-white placeholder-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms + create -->
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="agree" class="accent-pink-500" />
+          <label for="agree" class="text-white text-sm">I agree to the Terms & Privacy</label>
+        </div>
+        <p id="agreeError" class="text-sm text-red-300 mt-2 hidden">You must agree to the Terms & Privacy to create an account.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <button type="button" id="previewBtn" class="w-full py-2 rounded-lg bg-slate-700 text-white">Login</button>
+          <button type="submit" id="createAccountBtn" class="w-full py-2 rounded-lg bg-purple-700 text-white font-semibold">Create Account</button>
+        </div>
+
+        <p class="text-center text-white text-sm mt-2">Already have an account? <a href="login.html">Login here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* -------------------------
+      OTP + Validation Logic
+    ------------------------- */
+    const sendEmailOtpBtn = document.getElementById('sendEmailOtp');
+    const emailOtpSection = document.getElementById('emailOtpSection');
+    const verifyEmailOtpBtn = document.getElementById('verifyEmailOtp');
+    const resendEmailOtpBtn = document.getElementById('resendEmailOtp');
+    const emailOtpInput = document.getElementById('emailOtpInput');
+
+    const sendPhoneOtpBtn = document.getElementById('sendPhoneOtp');
+    const phoneOtpSection = document.getElementById('phoneOtpSection');
+    const verifyPhoneOtpBtn = document.getElementById('verifyPhoneOtp');
+    const resendPhoneOtpBtn = document.getElementById('resendPhoneOtp');
+    const phoneOtpInput = document.getElementById('phoneOtpInput');
+
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    const signupForm = document.getElementById('signupForm');
+
+    let emailOtp = null;
+    let phoneOtp = null;
+    let emailVerified = false;
+    let phoneVerified = false;
+
+    function generateOtp() {
+      return Math.floor(1000 + Math.random() * 9000).toString();
+    }
+
+    // EMAIL OTP
+    sendEmailOtpBtn.addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        alert('Please enter a valid email address first');
+        return;
+      }
+      emailOtp = generateOtp();
+      // In real app: send OTP to email via backend (SendGrid/Mailgun)
+      alert(`Demo: Email OTP sent to ${email}: ${emailOtp}`);
+      emailOtpSection.classList.remove('hidden');
+      sendEmailOtpBtn.classList.add('opacity-60');
+    });
+
+    verifyEmailOtpBtn.addEventListener('click', () => {
+      const val = emailOtpInput.value.trim();
+      if (!emailOtp) { alert('Please request an OTP first'); return; }
+      if (val === emailOtp) {
+        emailVerified = true;
+        alert('Email verified ✅');
+        emailOtpSection.classList.add('hidden');
+      } else {
+        alert('Invalid Email OTP ❌');
+      }
+    });
+
+    resendEmailOtpBtn.addEventListener('click', () => {
+      if (!document.getElementById('email').value.trim()) { alert('Enter email first'); return; }
+      emailOtp = generateOtp();
+      alert(`Demo: Resent Email OTP: ${emailOtp}`);
+    });
+
+    // PHONE OTP
+    sendPhoneOtpBtn.addEventListener('click', () => {
+      const phone = document.getElementById('phone').value.trim();
+      if (!phone || phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+        alert('Please enter a valid 10-digit mobile number first');
+        return;
+      }
+      phoneOtp = generateOtp();
+      // In real app: send OTP to phone via backend (Twilio)
+      alert(`Demo: Phone OTP sent to ${phone}: ${phoneOtp}`);
+      phoneOtpSection.classList.remove('hidden');
+      sendPhoneOtpBtn.classList.add('opacity-60');
+    });
+
+    verifyPhoneOtpBtn.addEventListener('click', () => {
+      const val = phoneOtpInput.value.trim();
+      if (!phoneOtp) { alert('Please request an OTP first'); return; }
+      if (val === phoneOtp) {
+        phoneVerified = true;
+        alert('Phone verified ✅');
+        phoneOtpSection.classList.add('hidden');
+      } else {
+        alert('Invalid Phone OTP ❌');
+      }
+    });
+
+    resendPhoneOtpBtn.addEventListener('click', () => {
+      if (!document.getElementById('phone').value.trim()) { alert('Enter phone first'); return; }
+      phoneOtp = generateOtp();
+      alert(`Demo: Resent Phone OTP: ${phoneOtp}`);
+    });
+
+    /* -------------------------
+      Form Submission & Validation
+    ------------------------- */
+    function atLeastOneEmergencyProvided() {
+      const n1 = document.getElementById('ec1_name').value.trim();
+      const p1 = document.getElementById('ec1_phone').value.trim();
+      const e1 = document.getElementById('ec1_email').value.trim();
+
+      // Contact1 is required: name + (phone or email)
+      if (!n1) return false;
+      if (!p1 && !e1) return false;
+      return true;
+    }
+
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // basic checks
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+  const agree = document.getElementById('agree').checked;
+  const agreeErrorEl = document.getElementById('agreeError');
+
+  if (!fname) { alert('Please enter your name'); return; }
+  if (!/^\S+@\S+\.\S+$/.test(email)) { alert('Please enter a valid email'); return; }
+      if (password.length < 6) { alert('Password must be at least 6 characters'); return; }
+      if (password !== confirmPassword) { alert('Passwords do not match'); return; }
+  if (!agree) { agreeErrorEl.classList.remove('hidden'); agreeErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+      // emergency contact check
+      if (!atLeastOneEmergencyProvided()) {
+        alert('Please provide at least one emergency contact (Contact 1: name and phone or email)');
+        return;
+      }
+
+      // ensure either phone OR email verified (or both). You can choose to require both.
+      if (!emailVerified && !phoneVerified) {
+        const proceed = confirm('Neither email nor phone is verified. It is recommended to verify at least one. Still want to continue?');
+        if (!proceed) return;
+      }
+
+      // Simulate account creation (in real app: send data to backend)
+      alert(`Welcome ${fname}! Your account has been created successfully 🎉`);
+      // Redirect to login page
+      window.location.href = 'login.html';
+    });
+
+    // Back button: go to login page
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+
+    // Hide agree error when user checks the box
+    document.getElementById('agree').addEventListener('change', (e) => {
+      const agreeErrorEl = document.getElementById('agreeError');
+      if (e.target.checked) agreeErrorEl.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>Tables

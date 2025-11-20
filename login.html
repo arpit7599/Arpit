@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpowHer Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+    }
+    .overlay {
+      background: rgba(128,0,128,0.6); /* purple overlay */
+      backdrop-filter: blur(8px);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .login-card input:focus {
+      outline: none;
+      border-color: #d946ef;
+      box-shadow: 0 0 10px #d946ef;
+    }
+    .login-button:hover {
+      background: #d946ef;
+      transition: 0.3s;
+    }
+    a { color: #f3e8ff; }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="login-card">
+      <div class="text-center mb-6">
+        <h1 class="text-3xl font-bold text-white mb-2">EmpowHer 👩</h1>
+        <p class="text-white text-sm">Your Safety, Your Power</p>
+      </div>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <input type="email" id="email" placeholder="Email" class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/30 text-white placeholder-white" required>
+        </div>
+        <div>
+          <input type="password" id="password" placeholder="Password" class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white/30 text-white placeholder-white" required>
+        </div>
+        <div class="flex items-center justify-between text-white text-sm">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" id="remember" class="accent-pink-500">
+            Remember Me
+          </label>
+          <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="login-button w-full py-2 rounded-lg bg-purple-700 text-white font-semibold">Login Securely</button>
+      </form>
+  <p class="text-center text-white text-sm mt-4">Not registered? <a href="create account1.html">Create Account</a></p>
+    </div>
+  </div>  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(!email || !password){
+        alert('Please fill in all fields');
+        return;
+      }
+      // Simulate login success
+      alert('Login successful! Redirecting to Dashboard...');
+      window.location.href = 'amit.html';
+    });
+  </script></body>
+</html>
